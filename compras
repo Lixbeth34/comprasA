@@ -1,0 +1,109 @@
+compras = []
+
+while True:
+    print("Lista de Compras: ")
+    print("1. Agregar Producto")
+    print("2. Eliminar Producto")
+    print("3. Ver Lista de Compras")
+    print("4. Calcular Costo Total")
+    print("5. Salir")
+
+    opcion = input("Ingrese el número de la operación deseada: ")
+
+    if opcion == '5':
+        print("Saliendo de la lista de compras.")
+        break
+
+    if opcion == '1':
+        # Operadores matemáticos
+        #   - Se utiliza la operación de multiplicación (*) para calcular el precio por la cantidad.
+        #   - Se utiliza la operación de resta (-) para calcular el costo total con descuento del 10%.
+        # Operadores logicos
+        #   - Se utiliza el operador lógico AND para verificar que la opción sea '1' y que el precio sea mayor que 0.
+        producto = input("Ingrese el nombre del producto: ")
+        precio = float(input("Ingrese el precio del producto: "))
+        cantidad = int(input("Ingrese la cantidad a comprar: "))
+        
+        if opcion == '1' and precio > 0:
+            # Operadores de asignación
+            #   - Se utiliza el operador de asignación compuesta (*=) para acumular el costo total.
+            subtotal = precio * cantidad
+            descuento = subtotal * 0.1  # se pone un descuento del 10%
+            costo_total = subtotal - descuento
+            
+            #Se utiliza para agregar un elemento al final de una lista
+            compras.append({"producto": producto, "precio": precio, "cantidad": cantidad, "costo_total": costo_total})
+            # Sentencia print (5 puntos)
+            print(f"Producto '{producto}' agregado a la lista de compras. Precio: ${precio}, Cantidad: {cantidad}")
+            print(f"Subtotal: ${subtotal:.2f}, Descuento: ${descuento:.2f}, Costo Total con Descuento: ${costo_total:.2f}")
+
+            
+            costo_total_acumulado = 0  # Inicializamos en 0 para acumular correctamente
+
+            for item in compras:
+                # Uso del operador de asignación compuesta (+=) para acumular el costo total
+                costo_total_acumulado += item['costo_total']
+
+            # Sentencia print 
+            print(f"Costo Total Acumulado: ${costo_total_acumulado:.2f}")
+
+        else:
+            # Sentencia print 
+            print("La opción '1' requiere un precio mayor que 0. Ingrese datos válidos.")
+
+    elif opcion == '2':
+        #En caso de que no exista compras
+        if not compras:
+            print("La lista de compras está vacía.")
+        else:
+            print("Lista de Compras:")
+            for i, item in enumerate(compras, 1):
+              
+                print(f"{i}. {item['producto']} - Precio: ${item['precio']}, Cantidad: {item['cantidad']}, Costo Total: ${item['costo_total']:.2f}")
+
+            numero_producto = int(input("Ingrese el número del producto a eliminar: "))
+            if 1 <= numero_producto <= len(compras):
+                # Operadores de asignación adicionales
+                producto_eliminado = compras.pop(numero_producto - 1)["producto"]
+                costo_total_anterior = sum(item['costo_total'] for item in compras)
+                # Utilizamos el operador de asignación compuesta (-=) para restar el costo total del producto eliminado
+                costo_total_anterior -= compras[numero_producto - 1]["costo_total"]
+                # Sentencia print (5 puntos)
+                print(f"Producto '{producto_eliminado}' eliminado de la lista de compras.")
+                print(f"Costo Total después de eliminar el producto: ${costo_total_anterior:.2f}")
+            else:
+                # Sentencia print (5 puntos)
+                print("Número de producto no válido.")
+
+    elif opcion == '3':
+        if not compras:
+            # Sentencia print (5 puntos)
+            print("La lista de compras está vacía.")
+        else:
+            # Sentencia print (5 puntos)
+            print("Lista de Compras:")
+            # Ciclo For (15 puntos)
+            # Utilizar al menos un ciclo for de forma finita
+            #   - Se utiliza un ciclo for para iterar sobre la lista de compras y mostrarla.
+            for i, item in enumerate(compras, 1):
+                # Sentencia print (5 puntos)
+                print(f"{i}. {item['producto']} - Precio: ${item['precio']}, Cantidad: {item['cantidad']}, Costo Total: ${item['costo_total']:.2f}")
+
+    elif opcion == '4':
+        if not compras:
+            # Sentencia print (5 puntos)
+            print("La lista de compras está vacía.")
+        else:
+            # Operaciones matemáticas (5 puntos)
+            # Utilizar al menos 3 operadores matemáticos diferentes
+            #   - Se utiliza la operación de suma (+) para calcular el costo total.
+            costo_total = sum(item['precio'] * item['cantidad'] for item in compras)
+            # Sentencia print (5 puntos)
+            # Impresión numérica controlando la cantidad de números decimales a imprimir
+            print(f"El costo total de la compra es: ${costo_total:.2f}")
+
+
+    else:
+        # Sentencia print (5 puntos)
+        print("Opción no válida. Por favor, seleccione una opción válida.")
+        continue
